@@ -1,13 +1,14 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import About from "./About"; // Ensure the path is correct
 import FirstLanding from "./FirstLanding";
 import ForgetPassword from "./forgetPassword";
+import Jobs from "./jobs";
 import LandingPage from "./landingpage"; // Make sure the file name and path are correct
 import Login from "./login";
+import Newjob from "./newjob";
+import Profile from "./profile";
 import Signup from "./signup";
-import Jobs from './jobs';
-import Newjob from './newjob'
-import About from "./About"; // Ensure the path is correct
 
 function App() {
   // Mock authentication function (replace with your real authentication logic)
@@ -35,10 +36,11 @@ function App() {
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/profile" element={<Profile />} />
         {/* Login Page Route */}
         {/* Add other routes if needed */}
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/newjob" element={<Newjob/>} />
+        <Route path="/newjob" element={<Newjob />} />
       </Routes>
     </Router>
   );
