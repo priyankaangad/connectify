@@ -17,10 +17,10 @@ const JobModel = require('./models/Job');
 app.use(express.json());
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'connectify',
+  host: 'localhost',
+  user: 'root',
+  password: 'ananya',
+  database: 'connectify_db',
 });
 
 connection.connect((err) => {
