@@ -28,21 +28,32 @@ const Jobs = () => {
   };
 
   const handleDeleteJob = async (jobId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {
-        method: 'DELETE', // DELETE request
-      });
-
-      if (response.ok) {
-        // Remove the job from the state after deletion
-        setJobs((prevJobs) => prevJobs.filter((job) => job.job_id !== jobId));
-      } else {
-        console.error('Failed to delete the job');
+    // Display a confirmation alert before proceeding with deletion
+    const isConfirmed = window.confirm("Are you sure you want to delete this job?");
+  
+    if (isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {
+          method: 'DELETE', // DELETE request
+        });
+  
+        if (response.ok) {
+          // Remove the job from the state after deletion
+          setJobs((prevJobs) => prevJobs.filter((job) => job.job_id !== jobId));
+          alert("Job deleted successfully!"); // Optionally alert on successful deletion
+        } else {
+          console.error('Failed to delete the job');
+          alert("Failed to delete the job. Please try again."); // Alert if deletion fails
+        }
+      } catch (error) {
+        console.error('Error deleting job:', error);
+        alert("An error occurred while deleting the job.");
       }
-    } catch (error) {
-      console.error('Error deleting job:', error);
+    } else {
+      console.log("Job deletion canceled.");
     }
   };
+  
 
   if (loading) {
     return <div>Loading jobs...</div>;

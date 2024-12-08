@@ -113,6 +113,27 @@ app.get("/jobs", (req, res) => {
   });
 });
 
+
+// DELETE endpoint to delete a job by job_id
+app.delete("/jobs/:id", (req, res) => {
+  const jobId = req.params.id; // Get job_id from URL params
+
+  const query = "DELETE FROM jobs WHERE job_id = ?";
+  connection.query(query, [jobId], (err, result) => {
+    if (err) {
+      console.error("Error deleting job:", err);
+      return res.status(500).json({ success: false, message: "Error deleting job" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: "Job not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Job deleted successfully" });
+  });
+});
+
+
 app.post("/register", async (req, res) => {
   console.log("Received request body:", req.body);
 

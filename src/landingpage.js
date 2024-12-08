@@ -12,7 +12,7 @@ function LandingPage() {
   const [jobResults, setJobResults] = useState([]);
   const [error, setError] = useState('');
 
-  // Fetch all jobs on initial page load
+
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
