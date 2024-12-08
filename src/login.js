@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./login.css";
 
 function Login() {
@@ -7,42 +7,43 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const handleLoginClick = (e) => {
-    e.preventDefault(); 
-    fetch('http://localhost:3000/login', {
-      method: 'POST',
+    e.preventDefault();
+    fetch("http://localhost:3000/login", {
+      method: "POST",
       headers: {
-          'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          email: email,
-          password: password
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        console.log("Response Status:", response.status); // Debug log for status
+        if (!response.ok) {
+          throw new Error("Failed to login: " + response.statusText); // Throw error for non-OK responses
+        }
+        return response.json(); // Parse the JSON response
       })
-  })
-      .then(response => {
-          console.log("Response Status:", response.status);  // Debug log for status
-          if (!response.ok) {
-              throw new Error('Failed to login: ' + response.statusText);  // Throw error for non-OK responses
-          }
-          return response.json();  // Parse the JSON response
+      .then((data) => {
+        console.log("Login Response Data:", data); // Debug log for the response data
+        if (data.token) {
+          // On success, store the token in localStorage
+          alert(data.message || "Login successful!");
+          localStorage.setItem("authToken", data.token);
+          localStorage.setItem("email", email);
+          setTimeout(() => {
+            window.location.href = "/landingpage"; // Redirect to the dashboard page
+          }, 1500); // 1.5 seconds delay
+        } else {
+          alert("Invalid email or password");
+        }
       })
-      .then(data => {
-          console.log("Login Response Data:", data);  // Debug log for the response data
-          if (data.token) {
-              // On success, store the token in localStorage
-              alert(data.message || 'Login successful!');
-              localStorage.setItem("authToken", data.token);
-              setTimeout(() => {
-                  window.location.href = '/landingpage';  // Redirect to the dashboard page
-              }, 1500);  // 1.5 seconds delay
-          } else {
-              alert('Invalid email or password');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);  // Log any errors in the network request
-          alert('An error occurred: ' + error.message);  // Show error alert
+      .catch((error) => {
+        console.error("Error:", error); // Log any errors in the network request
+        alert("An error occurred: " + error.message); // Show error alert
       });
-  }
+  };
 
   return (
     <div class="loginPageImg">

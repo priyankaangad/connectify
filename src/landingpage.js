@@ -1,26 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import company1 from './assests/abid-shah-cxAV7aUesIQ-unsplash.jpg';
-import company2 from './assests/boliviainteligente-z7ICBEMUJfw-unsplash.jpg';
-import company3 from './assests/shutter-speed-RoqC4Bw5B8A-unsplash.jpg';
-import './landingpage.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import company1 from "./assests/abid-shah-cxAV7aUesIQ-unsplash.jpg";
+import company2 from "./assests/boliviainteligente-z7ICBEMUJfw-unsplash.jpg";
+import company3 from "./assests/shutter-speed-RoqC4Bw5B8A-unsplash.jpg";
+import "./landingpage.css";
 
 function LandingPage() {
-  const [keyword, setKeyword] = useState('');
-  const [location, setLocation] = useState('');
+  const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("");
   const [jobResults, setJobResults] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // Fetch all jobs on initial page load
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/jobs/search');
+        const response = await axios.get(
+          "http://localhost:3000/api/jobs/search"
+        );
         setJobResults(response.data);
       } catch (err) {
-        console.error('Error fetching all jobs:', err);
-        setError('Unable to fetch job listings. Please try again later.');
+        console.error("Error fetching all jobs:", err);
+        setError("Unable to fetch job listings. Please try again later.");
       }
     };
 
@@ -42,25 +44,29 @@ function LandingPage() {
   // });
 
   const handleLogoutClick = () => {
-    localStorage.removeItem('authToken');
-    window.location.href = '/';
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("email");
+    window.location.href = "/";
   };
 
   const handleUpload = () => {
-    window.location.href = '/upload';
+    window.location.href = "/upload";
   };
-  
+
   const handleSearch = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     try {
-      const response = await axios.get('http://localhost:3000/api/jobs/search', {
-        params: { keyword, location },
-      });
+      const response = await axios.get(
+        "http://localhost:3000/api/jobs/search",
+        {
+          params: { keyword, location },
+        }
+      );
       setJobResults(response.data);
     } catch (err) {
-      console.error('Error searching for jobs:', err);
-      setError('Unable to fetch job listings. Please try again later.');
+      console.error("Error searching for jobs:", err);
+      setError("Unable to fetch job listings. Please try again later.");
     }
   };
 
@@ -71,7 +77,9 @@ function LandingPage() {
         <div className="logo">Connectify</div>
         <nav className="nav-menu">
           <div className="button-container">
-            <button className="signup-btn">Profile</button>
+            <Link to="/profile">
+              <button className="signup-btn">Profile</button>
+            </Link>
             <button className="signup-btn" onClick={handleLogoutClick}>
               Logout
             </button>
@@ -82,18 +90,24 @@ function LandingPage() {
       <nav className="navbar-main">
         <ul className="nav-list-main">
           {/* <li><a href="#">Find Jobs</a></li> */}
-          <li><a href="#">Salary Tools</a></li>
-          <li><a href="#">Career Advice</a></li>
-          <li><a href="#">Resume Help</a></li>
+          <li>
+            <a href="#">Salary Tools</a>
+          </li>
+          <li>
+            <a href="#">Career Advice</a>
+          </li>
+          <li>
+            <a href="#">Resume Help</a>
+          </li>
           {/* <li><a href={handleLogoutClick}>Upload Resume</a></li> */}
           <li>
-      {/* Corrected "Upload Resume" navigation */}
-      <a onClick={handleUpload} >
-        Upload Resume
-      </a>
-    </li>
+            {/* Corrected "Upload Resume" navigation */}
+            <a onClick={handleUpload}>Upload Resume</a>
+          </li>
 
-          <li><Link to="/jobs">Employers / Post Job</Link></li>
+          <li>
+            <Link to="/jobs">Employers / Post Job</Link>
+          </li>
         </ul>
       </nav>
 
@@ -102,7 +116,8 @@ function LandingPage() {
         <div className="hero-content">
           <h1>Find Your Next Job with Connectify</h1>
           <p>
-            Explore thousands of job listings and discover your dream career today.
+            Explore thousands of job listings and discover your dream career
+            today.
           </p>
           <form className="job-search-form" onSubmit={handleSearch}>
             <input
@@ -131,9 +146,16 @@ function LandingPage() {
             {jobResults.map((job) => (
               <div key={job.id} className="job-card">
                 <h3 className="job-title">{job.job_title}</h3>
-                <p><strong>Company:</strong> {job.company_name}</p>
-                <p><strong>Location:</strong> {job.location}</p>
-                <p><strong>Salary:</strong> {job.salary ? `$${job.salary}` : 'Not Specified'}</p>
+                <p>
+                  <strong>Company:</strong> {job.company_name}
+                </p>
+                <p>
+                  <strong>Location:</strong> {job.location}
+                </p>
+                <p>
+                  <strong>Salary:</strong>{" "}
+                  {job.salary ? `$${job.salary}` : "Not Specified"}
+                </p>
                 <p>{job.job_description}</p>
                 {job.company_website && (
                   <a
@@ -170,9 +192,15 @@ function LandingPage() {
         <p>&copy; 2024 Connectify. All rights reserved.</p>
         <nav className="footer-nav">
           <ul>
-            <li><a href="#privacy">Privacy Policy</a></li>
-            <li><a href="#terms">Terms of Use</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li>
+              <a href="#privacy">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#terms">Terms of Use</a>
+            </li>
+            <li>
+              <a href="#contact">Contact Us</a>
+            </li>
           </ul>
         </nav>
       </footer>
