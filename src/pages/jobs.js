@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './jobs.css'
+import '../css/jobs.css';
+
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);

@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import About from "./About"; // Ensure the path is correct
-import FirstLanding from "./FirstLanding";
-import ForgetPassword from "./forgetPassword";
-import Jobs from "./jobs";
-import LandingPage from "./landingpage"; // Make sure the file name and path are correct
-import Login from "./login";
-import Newjob from "./newjob";
-import Profile from "./profile";
-import Signup from "./signup";
+import FirstLanding from "./pages/FirstLanding";
+import ForgetPassword from "./pages/forgetPassword";
+import LandingPage from "./pages/landingpage"; // Make sure the file name and path are correct
+import Login from "./pages/login";
+import Signup from "./pages/signup";
+import Jobs from './pages/jobs';
+import Newjob from './pages/newjob'
+import About from "./pages/About"; // Ensure the path is correct
+import Profile from "./pages/profile";
 
 function App() {
   // Mock authentication function (replace with your real authentication logic)

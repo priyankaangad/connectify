@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./login.css";
+import '../css/login.css';
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -46,9 +47,9 @@ function Login() {
   };
 
   return (
-    <div class="loginPageImg">
-      <div class="parent">
-        <h2 class="noMargin textAlignCenter">Login to Connectify</h2>
+    <div className="loginPageImg">
+      <div className="parent">
+        <h2 className="noMargin textAlignCenter">Login to Connectify</h2>
         <form id="loginForm" onSubmit={handleLoginClick}>
           <input
             type="email"

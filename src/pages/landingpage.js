@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import company1 from "./assests/abid-shah-cxAV7aUesIQ-unsplash.jpg";
-import company2 from "./assests/boliviainteligente-z7ICBEMUJfw-unsplash.jpg";
-import company3 from "./assests/shutter-speed-RoqC4Bw5B8A-unsplash.jpg";
-import "./landingpage.css";
+import company1 from "../assests/abid-shah-cxAV7aUesIQ-unsplash.jpg";
+import company2 from "../assests/boliviainteligente-z7ICBEMUJfw-unsplash.jpg";
+import company3 from "../assests/shutter-speed-RoqC4Bw5B8A-unsplash.jpg";
+import '../css/landingpage.css';
 
 function LandingPage() {
   const [keyword, setKeyword] = useState("");

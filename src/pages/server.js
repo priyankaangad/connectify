@@ -1,24 +1,26 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const mysql = require("mysql2");
 const app = express();
 const port = 3000;
 const cors = require("cors");
 app.use(cors()); // Enable CORS
-const db = require("./db_connection"); // Import the MySQL connection
+const db = require('../db_connection'); // Import the MySQL connection
 
-const JobModel = require("./models/Job");
+
+const JobModel = require('../models/Job');
+
 
 // Middleware to parse JSON request body
 app.use(express.json());
 
 const connection = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "", // Replace with your actual MySQL password
-  database: "connectify",
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'connectify',
 });
 
 connection.connect((err) => {
@@ -99,28 +101,6 @@ app.post("/jobs", (req, res) => {
   });
 });
 
-app.post("/profile", (req, res) => {
-  const { email, password } = req.body;
-
-  // Check if user exists
-  connection.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    async (err, result) => {
-      if (err) {
-        console.error("Error querying user data:", err);
-        return res.status(500).json({ message: "Server error" });
-      }
-
-      if (result.length === 0) {
-        return res.status(400).json({ message: "User not found" });
-      }
-
-      res.json(result);
-    }
-  );
-});
-
 // Get all jobs (to display on the listing page)
 app.get("/jobs", (req, res) => {
   jobs.find({}, (err, jobs) => {
@@ -132,27 +112,6 @@ app.get("/jobs", (req, res) => {
     res.status(200).send({ jobs });
   });
 });
-
-
-// DELETE endpoint to delete a job by job_id
-app.delete("/jobs/:id", (req, res) => {
-  const jobId = req.params.id; // Get job_id from URL params
-
-  const query = "DELETE FROM jobs WHERE job_id = ?";
-  connection.query(query, [jobId], (err, result) => {
-    if (err) {
-      console.error("Error deleting job:", err);
-      return res.status(500).json({ success: false, message: "Error deleting job" });
-    }
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ success: false, message: "Job not found" });
-    }
-
-    res.status(200).json({ success: true, message: "Job deleted successfully" });
-  });
-});
-
 
 app.post("/register", async (req, res) => {
   console.log("Received request body:", req.body);
@@ -357,40 +316,43 @@ app.post("/reset-password", (req, res) => {
   });
 });
 
-app.get("/api/jobs/search", (req, res) => {
-  const { keyword = "", location = "" } = req.query;
+
+
+app.get('/api/jobs/search', (req, res) => {
+  const { keyword = '', location = '' } = req.query;
 
   // If no keyword or location provided, fetch all jobs
   let query;
   let values;
   if (!keyword && !location) {
-    query = `SELECT * FROM jobs`; // Fetch all jobs
-    values = [];
+      query = `SELECT * FROM jobs`; // Fetch all jobs
+      values = [];
   } else {
-    query = `
+      query = `
           SELECT * FROM jobs
           WHERE job_title LIKE ? AND location LIKE ?
       `;
-    values = [`%${keyword}%`, `%${location}%`];
+      values = [`%${keyword}%`, `%${location}%`];
   }
 
   db.query(query, values, (err, results) => {
-    if (err) {
-      console.error("Error fetching jobs:", err);
-      res
-        .status(500)
-        .json({ error: "An error occurred while searching for jobs" });
-    } else {
-      res.status(200).json(results);
-    }
+      if (err) {
+          console.error("Error fetching jobs:", err);
+          res.status(500).json({ error: "An error occurred while searching for jobs" });
+      } else {
+          res.status(200).json(results);
+      }
   });
 });
+
 
 // // Start the server
 // const PORT = 3000;
 // app.listen(PORT, () => {
 //     console.log(`Server running at http://localhost:${PORT}`);
 // });
+
+
 
 // app.get('/api/jobs/search', async (req, res) => {
 //   const { keyword, location, skills } = req.query;
@@ -415,3 +377,5 @@ app.get("/api/jobs/search", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './newjob.css'; // Ensure styles are imported correctly
+import '../css/newjob.css'; // Ensure styles are imported correctly
 
 const NewJob = () => {
   const [formData, setFormData] = useState({
