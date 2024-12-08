@@ -1,0 +1,93 @@
+.new-job-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f7fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-job-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2d3e50;
+  }
+  
+  .new-job-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .new-job-form label {
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .new-job-form input,
+  .new-job-form textarea,
+  .new-job-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .new-job-form textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  .submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: green;
+    font-weight: bold;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9rem;
+    display: none;
+  }
+  
+  .success {
+    color: green;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }

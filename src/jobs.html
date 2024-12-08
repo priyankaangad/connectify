@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Listings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> <!-- Google Font -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7fc;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2d3e50;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .job-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .job-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .job-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #2d3e50;
+      margin-bottom: 10px;
+    }
+
+    .company-name {
+      font-size: 1rem;
+      color: #5f6368;
+      margin-bottom: 15px;
+    }
+
+    .job-description {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .apply-button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .apply-button:hover {
+      background-color: #45a049;
+    }
+
+    .loading-message {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    /* Create New Job Button */
+    .create-job-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    .create-job-button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Create New Job Button -->
+  <button class="create-job-button" onclick="window.location.href = 'newJob.html';">Create New Job</button>
+  
+  <div class="container">
+    <h1>Job Listings</h1>
+    <div id="loading" class="loading-message">Loading jobs...</div>
+    <div id="jobs-list" class="job-list">
+      <!-- Job items will be displayed here -->
+    </div>
+  </div>
+
+  <script>
+    fetch('http://localhost:3000/jobs')
+      .then(response => response.json())
+      .then(data => {
+        const jobsList = document.getElementById('jobs-list');
+        const loadingMessage = document.getElementById('loading');
+        loadingMessage.style.display = 'none'; // Hide loading message
+
+        if (data.length > 0) {
+          data.forEach(job => {
+            const jobCard = document.createElement('div');
+            jobCard.classList.add('job-card');
+
+            const jobTitle = document.createElement('div');
+            jobTitle.classList.add('job-title');
+            jobTitle.textContent = job.job_title;
+
+            const companyName = document.createElement('div');
+            companyName.classList.add('company-name');
+            companyName.textContent = job.company_name;
+
+            const jobDescription = document.createElement('div');
+            jobDescription.classList.add('job-description');
+            jobDescription.textContent = job.job_description || 'No description available';
+
+            const applyButton = document.createElement('button');
+            applyButton.classList.add('apply-button');
+            applyButton.textContent = 'Apply Now';
+            // You can add functionality to the Apply Now button if needed
+            applyButton.onclick = function () {
+              window.location.href = `http://example.com/apply/${job.job_id}`;  // Replace with your actual job application URL
+            };
+
+            jobCard.appendChild(jobTitle);
+            jobCard.appendChild(companyName);
+            jobCard.appendChild(jobDescription);
+            jobCard.appendChild(applyButton);
+
+            jobsList.appendChild(jobCard);
+          });
+        } else {
+          jobsList.innerHTML = '<div class="loading-message">No jobs available at the moment.</div>';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching jobs:', error);
+        const jobsList = document.getElementById('jobs-list');
+        jobsList.innerHTML = '<div class="loading-message">There was an error loading jobs. Please try again later.</div>';
+      });
+
+
+      async function fetchJobs() {
+        const response = await fetch('http://localhost:3000/jobs');  // Endpoint to get jobs (your server should expose this)
+        const jobs = await response.json();
+    
+        const jobList = document.getElementById('job-list');
+        jobList.innerHTML = '';  // Clear existing jobs
+    
+        jobs.forEach(job => {
+          const li = document.createElement('li');
+          li.textContent = `${job.job_title} at ${job.company_name}: ${job.job_description}`;
+          jobList.appendChild(li);
+        });
+      }
+      fetchJobs();
+  </script>
+  
+</body>
+</html>

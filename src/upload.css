@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9; /* Light background for overall page */
+}
+
+.landing-page {
+    text-align: center;
+}
+
+/* Header Section */
+.landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #4caf50; /* Green background */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.landing-header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-menu .upload-btn {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-menu .upload-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(to bottom, #4caf50, #81c784);
+    padding: 50px 20px;
+    color: white;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.job-search-form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.job-search-form input {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.job-search-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.job-search-form button:hover {
+    background-color: #0056b3;
+}
+
+/* File Upload Section */
+.upload-section {
+    background-color: #ffffff;
+    margin: 30px auto;
+    padding: 40px;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.uploaded-info {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.file-preview {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Spinner for Loading */
+.spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.spinner .loading-circle {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-top: 10px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Featured Companies Section */
+.featured-companies {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+    border-radius: 12px;
+}
+
+.featured-companies h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.company-logo {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.company-logo img {
+    width: 150px;
+    height: 100px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.company-logo img:hover {
+    transform: scale(1.1);
+}
+
+/* Footer Section */
+.landing-footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.footer-nav a:hover {
+    color: white;
+}

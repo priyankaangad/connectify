@@ -1,0 +1,38 @@
+.about-page {
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-content {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .about-content h2 {
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  .about-content p {
+    color: #555;
+    font-size: 18px;
+  }
+  
+  .about-content ul {
+    list-style-type: disc;
+    text-align: left;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  
+  .about-content li {
+    font-size: 16px;
+    color: #666;
+    margin: 10px 0;
+  }
+
+  .centered {
+    text-align: center; /* Centers the text inside the list item */
+    list-style: none; /* Removes the default bullet point if needed */
+    margin: 10px auto; /* Adds spacing and centers the list item itself */
+  }
+  

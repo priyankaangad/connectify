@@ -1,0 +1,148 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Header */
+  .header {
+    background-color:  #4caf50;
+    color: white;
+    padding: 1rem 0;
+  }
+  
+  .header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav a {
+    margin: 0 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(120deg,     #b2c45f, #acecc6);
+    color: black;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-button {
+    background-color: #ff5e57;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .cta-button:hover {
+    background-color: #ff3b2f;
+  }
+  
+  /* Features Section */
+  .features {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  
+  .features h3 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color:#4caf50;
+  }
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .feature-item {
+    background: #f0f4f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .feature-item h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  .feature-item p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Jobs Section */
+  .jobs {
+    padding: 4rem 2rem;
+    background-color: #eef6ff;
+    text-align: center;
+  }
+  
+  .jobs h3 {
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: #4caf50;
+  }
+  
+  .job-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+  
+  .job-item {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color:#4caf50;;
+    color: white;
+    font-size: 0.9rem;
+  }
+  

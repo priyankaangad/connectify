@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create New Job</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin-top: 250px; 
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      max-width: 800px;
+      width: 100%;
+      margin-top: 50px; 
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #555;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    input[type="date"], input[type="number"], input[type="email"], textarea, select {
+      background-color: #f9f9f9;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"], textarea, select {
+      color: #333;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .success {
+      color: green;
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Create New Job</h1>
+    <form id="job-form">
+      <div class="form-group">
+        <label for="job_title">Job Title</label>
+        <input type="text" id="job_title" name="job_title" placeholder="Enter job title" required>
+        <div class="error" id="job_title_error">Job title is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="company_name">Company Name</label>
+        <input type="text" id="company_name" name="company_name" placeholder="Enter company name" required>
+        <div class="error" id="company_name_error">Company name is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="job_description">Job Description</label>
+        <textarea id="job_description" name="job_description" rows="4" placeholder="Enter job description" required></textarea>
+        <div class="error" id="job_description_error">Job description is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="job_type">Job Type</label>
+        <select id="job_type" name="job_type" required>
+          <option value="" disabled selected>Select job type</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+          <option value="Contract">Contract</option>
+          <option value="Internship">Internship</option>
+        </select>
+        <div class="error" id="job_type_error">Please select job type</div>
+      </div>
+
+      <div class="form-group">
+        <label for="salary">Salary (per month)</label>
+        <input type="number" id="salary" name="salary" placeholder="Enter salary" required>
+        <div class="error" id="salary_error">Salary is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="skills_required">Skills Required</label>
+        <input type="text" id="skills_required" name="skills_required" placeholder="Enter skills required">
+      </div>
+
+      <div class="form-group">
+        <label for="application_deadline">Application Deadline</label>
+        <input type="date" id="application_deadline" name="application_deadline" required>
+        <div class="error" id="application_deadline_error">Please provide an application deadline</div>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Enter job location" required>
+        <div class="error" id="location_error">Location is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="contact_email">Contact Email</label>
+        <input type="email" id="contact_email" name="contact_email" placeholder="Enter contact email" required>
+        <div class="error" id="contact_email_error">Valid email is required</div>
+      </div>
+
+      <button type="submit">Create Job </button>
+    </form>
+
+    <div id="success-message" class="success" style="display:none;">
+      Job listing successfully created!
+    </div>
+
+    <a href="jobs.html" class="back-link">Back to Job Listings</a>
+  </div>
+
+  <script>
+    document.getElementById('job-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let isValid = true;
+    
+        // Clear previous error messages
+        const errors = document.querySelectorAll('.error');
+        errors.forEach(function(error) {
+            error.style.display = 'none';
+        });
+    
+        // Validate form fields
+        const jobTitle = document.getElementById('job_title');
+        const companyName = document.getElementById('company_name');
+        const jobDescription = document.getElementById('job_description');
+        const jobType = document.getElementById('job_type');
+        const salary = document.getElementById('salary');
+        const applicationDeadline = document.getElementById('application_deadline');
+        const contactEmail = document.getElementById('contact_email');
+        const location = document.getElementById('location');
+    
+        if (jobTitle.value.trim() === '') {
+            document.getElementById('job_title_error').style.display = 'block';
+            isValid = false;
+        }
+        if (companyName.value.trim() === '') {
+            document.getElementById('company_name_error').style.display = 'block';
+            isValid = false;
+        }
+        if (jobDescription.value.trim() === '') {
+            document.getElementById('job_description_error').style.display = 'block';
+            isValid = false;
+        }
+        if (jobType.value === '') {
+            document.getElementById('job_type_error').style.display = 'block';
+            isValid = false;
+        }
+        if (salary.value.trim() === '') {
+            document.getElementById('salary_error').style.display = 'block';
+            isValid = false;
+        }
+        if (applicationDeadline.value.trim() === '') {
+            document.getElementById('application_deadline_error').style.display = 'block';
+            isValid = false;
+        }
+        if (contactEmail.value.trim() === '' || !contactEmail.value.includes('@')) {
+            document.getElementById('contact_email_error').style.display = 'block';
+            isValid = false;
+        }
+        if (location.value.trim() === '') {
+            document.getElementById('location_error').style.display = 'block';
+            isValid = false;
+        }
+    
+        if (isValid) {
+            // Collect form data into an object
+            const jobData = {
+                job_title: jobTitle.value,
+                company_name: companyName.value,
+                job_description: jobDescription.value,
+                job_type: jobType.value,
+                salary: salary.value,
+                skills_required: document.getElementById('skills_required').value,
+                application_deadline: applicationDeadline.value,
+                contact_email: contactEmail.value,
+                location: location.value
+            };
+    
+            // Send the job data to the backend
+            fetch('http://localhost:3000/jobs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jobData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    document.getElementById('success-message').style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'jobs.html'; // Redirect to the job listings page
+                    }, 2000); // Redirect after 2 seconds
+                } else {
+                    alert('Error creating job: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error creating job:', error);
+            });
+        }
+    });
+    
+        
+      
+  </script>
+  
+</body>
+</html>
