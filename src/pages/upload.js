@@ -15,7 +15,6 @@ function UploadPage() {
     const REGION = 'us-east-1';
     const accessKeyId= process.env.REACT_APP_AWS_ACCESS_KEY_ID
     const secretAccessKey= process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
-    console.log("accesskey",accessKeyId,secretAccessKey);
     AWS.config.update({
         accessKeyId: accessKeyId,
         secretAccessKey: secretAccessKey,
