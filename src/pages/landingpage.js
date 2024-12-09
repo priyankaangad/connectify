@@ -5,14 +5,13 @@ import company1 from "../assests/abid-shah-cxAV7aUesIQ-unsplash.jpg";
 import company2 from "../assests/boliviainteligente-z7ICBEMUJfw-unsplash.jpg";
 import company3 from "../assests/shutter-speed-RoqC4Bw5B8A-unsplash.jpg";
 import '../css/landingpage.css';
-
+import UploadPage from "./upload"; 
 function LandingPage() {
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
   const [jobResults, setJobResults] = useState([]);
   const [error, setError] = useState("");
-
-
+  const [showUploadPage, setShowUploadPage] = useState(false); 
   useEffect(() => {
     const fetchAllJobs = async () => {
       try {
@@ -29,20 +28,6 @@ function LandingPage() {
     fetchAllJobs();
   }, []);
 
-  // // AWS S3 Configuration
-  // const S3_BUCKET = 'myresumebucketnewrahul';
-  // const REGION = 'us-east-1';
-
-  // AWS.config.update({
-  //     accessKeyId: AWS_ACCESS_KEY, // Replace with your AWS Access Key ID
-  //     secretAccessKey: AWS_ACCESS_SECRET // Replace with your AWS Secret Access Key
-  // });
-
-  // const s3 = new AWS.S3({
-  //     params: { Bucket: S3_BUCKET },
-  //     region: REGION,
-  // });
-
   const handleLogoutClick = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("email");
@@ -50,19 +35,18 @@ function LandingPage() {
   };
 
   const handleUpload = () => {
-    window.location.href = "/upload";
+    console.log("handling upload");
+    // Instead of redirecting, show the UploadPage component
+    setShowUploadPage(true);
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/jobs/search",
-        {
-          params: { keyword, location },
-        }
-      );
+      const response = await axios.get("http://localhost:3000/api/jobs/search", {
+        params: { keyword, location },
+      });
       setJobResults(response.data);
     } catch (err) {
       console.error("Error searching for jobs:", err);
@@ -74,8 +58,15 @@ function LandingPage() {
     <div className="landing-page">
       {/* Header Section */}
       <header className="landing-header">
-        <div className="logo">Connectify</div>
-        <nav className="nav-menu">
+      <div 
+       className="logo" 
+       style={{ cursor: 'pointer' }} 
+        onClick={() => window.location.reload()}
+        >
+        Connectify
+      </div>
+
+       <nav className="nav-menu">
           <div className="button-container">
             <Link to="/profile">
               <button className="signup-btn">Profile</button>
@@ -89,7 +80,6 @@ function LandingPage() {
 
       <nav className="navbar-main">
         <ul className="nav-list-main">
-          {/* <li><a href="#">Find Jobs</a></li> */}
           <li>
             <a href="#">Salary Tools</a>
           </li>
@@ -99,12 +89,10 @@ function LandingPage() {
           <li>
             <a href="#">Resume Help</a>
           </li>
-          {/* <li><a href={handleLogoutClick}>Upload Resume</a></li> */}
           <li>
-            {/* Corrected "Upload Resume" navigation */}
-            <a onClick={handleUpload}>Upload Resume</a>
+            {/* Now clicking this will show the embedded UploadPage */}
+            <a onClick={handleUpload} style={{ cursor: 'pointer' }}>Upload Resume</a>
           </li>
-
           <li>
             <Link to="/jobs">Employers / Post Job</Link>
           </li>
@@ -112,30 +100,38 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1>Find Your Next Job with Connectify</h1>
-          <p>
-            Explore thousands of job listings and discover your dream career
-            today.
-          </p>
-          <form className="job-search-form" onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Job title or keyword"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-            <button type="submit">Search</button>
-          </form>
-        </div>
-      </section>
+    {/* Hero Section - Only show when showUploadPage is false */}
+{!showUploadPage && (
+  <section className="hero-section">
+    <div className="hero-content">
+      <h1>Find Your Next Job with Connectify</h1>
+      <p>Explore thousands of job listings and discover your dream career today.</p>
+      <form className="job-search-form" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Job title or keyword"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </section>
+)}
+
+
+      {/* If showUploadPage is true, we embed the UploadPage component right here */}
+      {showUploadPage && (
+        <section className="upload-section-container">
+          <UploadPage />
+        </section>
+      )}
 
       {/* Job Results Section */}
       <section className="job-results">

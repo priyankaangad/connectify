@@ -2,21 +2,21 @@ import React, { useRef, useState } from 'react';
 import AWS from 'aws-sdk';
 import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
-import './upload.css'; // Assume CSS changes are made
+import '../css/landingpage.css';
 
-function LandingPage() {
+function UploadPage() {
     const fileInputRef = useRef(null);
     const [uploadedFileName, setUploadedFileName] = useState(null);
     const [uploadedFileUrl, setUploadedFileUrl] = useState(null);
-    const [isUploading, setIsUploading] = useState(false); // For showing a loading spinner
+    const [isUploading, setIsUploading] = useState(false);
 
     // AWS S3 Configuration
     const S3_BUCKET = 'myresumebucketnewrahul';
     const REGION = 'us-east-1';
-git 
+
     AWS.config.update({
-        accessKeyId: "", // Replace with your AWS Access Key ID
-        secretAccessKey: "" // Replace with your AWS Secret Access Key
+        accessKeyId: "AKIAWMH4B6GUNQQJMCDM",
+        secretAccessKey: "bvWVeHrNfjo8pgILMPbsnjr7nufF2rJuk3dRxYtL",
     });
 
     const s3 = new AWS.S3({
@@ -36,7 +36,7 @@ git
 
         const params = {
             Bucket: S3_BUCKET,
-            Key: resumes/${Date.now()}_${file.name},
+            Key: `resumes/${Date.now()}_${file.name}`,
             Body: file,
             ACL: 'public-read',
         };
@@ -52,9 +52,8 @@ git
                 return;
             }
 
-            console.log('File uploaded successfully:', data);
             setUploadedFileName(file.name);
-            setUploadedFileUrl(data.Location); // The public URL of the uploaded file
+            setUploadedFileUrl(data.Location);
             alert('File uploaded successfully to AWS S3!');
         });
     };
@@ -77,15 +76,7 @@ git
 
     return (
         <div className="landing-page">
-            {/* Header Section */}
-            <header className="landing-header">
-                <div className="logo">Connectify</div>
-                <nav className="nav-menu">
-                    <button className="upload-btn" onClick={handleUploadClick}>
-                        Upload Resume
-                    </button>
-                </nav>
-            </header>
+          
 
             {/* Hidden File Input */}
             <input
@@ -96,9 +87,20 @@ git
                 onChange={handleFileUpload}
             />
 
+            {/* Hero Section */}
+            <section className="hero-section">
+                <div className="hero-content">
+                    <h1>Welcome to Connectify</h1>
+                    <p>Seamlessly manage your resume uploads and access them anytime, anywhere.</p>
+                </div>
+                <button className="upload-btn" onClick={handleUploadClick}>
+                        Upload Resume
+                    </button>
+            </section>
+
             {/* File Upload Section */}
             <section id="upload" className="upload-section">
-                <h2>Upload Your Resume</h2>
+                
                 {isUploading ? (
                     <div className="spinner">
                         <p>Uploading...</p>
@@ -122,8 +124,20 @@ git
                     </>
                 )}
             </section>
+
+            {/* Footer Section */}
+            <footer className="landing-footer">
+                <div>© 2024 Connectify. All Rights Reserved.</div>
+                <nav className="footer-nav">
+                    <ul>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#support">Support</a></li>
+                    </ul>
+                </nav>
+            </footer>
         </div>
     );
 }
 
-export default LandingPage;
+export default UploadPage;
